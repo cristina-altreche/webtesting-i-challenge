@@ -3,13 +3,13 @@ const enhancer = require("./enhancer.js");
 describe("repair()", function () {
   it("should repair an actual item", function () {
     const item = {
-      weapon: "Sword",
+      weapon: "fist weapon",
       durability: 50,
       enhancement: 15,
     };
 
     const expected = {
-      weapon: "Sword",
+      weapon: "fist weapon",
       durability: 100,
       enhancement: 15,
     };
@@ -17,5 +17,13 @@ describe("repair()", function () {
     expect(actual).toStrictEqual(expected);
   });
 
-  it("should return a message if no durability found");
+  it("should return a message if no durability found", function() {
+      const item = {
+          weapon: "Sword",
+          enhancement: 15
+      }
+      const expected = { message: "your item has no durability"}
+      const actual = enhancer.repair(item)
+      expect(actual).toStrictEqual(expected)
+  });
 });
