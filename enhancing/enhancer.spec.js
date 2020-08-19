@@ -51,3 +51,113 @@ describe("repair()", function () {
       expect(actual).toStrictEqual(expected)
   })
 });
+
+describe("success()", function() {
+    it("should increase enhancement by 1", function() {
+        const item = {
+            weapon: "axe",
+            durability: 65,
+            enhancement: 15
+        }
+
+        const expected = {
+            weapon: "axe",
+            durability: 65,
+            enhancement: 16
+        }
+
+        const actual = enhancer.success(item)
+        expect(actual).toStrictEqual(expected)
+    })
+
+    it("should return item unchanged if greater than or equal to 20", function() {
+        const item = {
+            weapon: "axe",
+            durability: 65,
+            enhancement: 20
+        }
+
+        const expected = {
+            weapon: "axe",
+            durability: 65,
+            enhancement: 20 
+        }
+
+        const actual = enhancer.success(item)
+        expect(actual).toStrictEqual(expected)
+    })
+
+    it("should give a message if enhancement does not exist", function(){
+        const item ={
+            weapon: "axe",
+            durability: 65
+        }
+
+        const expected = { message: "item cannot be enhanced"}
+        const actual = enhancer.success(item)
+        expect(actual).toStrictEqual(expected)
+    })
+})
+
+describe("fail()", function() {
+    it("should give a message if enhancement does not exist", function() {
+        const item = {
+            weapon: "axe",
+            durability: 65
+        }
+
+        const expected = { message: 'item cannot be enhanced'}
+        const actual = enhancer.fail(item)
+        expect(actual).toStrictEqual(expected)
+    })
+
+    it('should reduce durability by 5 if enhancement is less than 15', function(){
+        const item = {
+            weapon: "axe",
+            durability: 65,
+            enhancement: 13
+        }
+
+        const expected = {
+            weapon: "axe",
+            durability: 60,
+            enhancement: 13
+        }
+
+        const actual= enhancer.fail(item)
+        expect(actual).toStrictEqual(expected)
+    })
+
+    it("should reduce durability by 10 if enhancement is 15", function() {
+        const item = {
+            weapon: "axe",
+            durability: 65,
+            enhancement: 15
+        }
+        const expected = {
+            weapon: "axe",
+            durability: 55,
+            enhancement: 15
+        }
+
+        const actual = enhancer.fail(item)
+        expect(actual).toStrictEqual(expected)
+    })
+
+    it("should reduce durability by 10 and enhancement by 1 if enhancement is at least 17", function() {
+        const item = {
+            weapon: "axe",
+            durability: 65,
+            enhancement: 17
+        }
+
+        const expected = {
+            weapon: "axe",
+            durability: 55,
+            enhancement: 16
+        }
+
+        const actual = enhancer.fail(item)
+        expect(actual).toStrictEqual(expected)
+    })
+})
